@@ -21,6 +21,15 @@ db.Badge = require("./badge.model.js")(sequelize, DataTypes);
 db.UserBadge = require("./userBadge.model.js")(sequelize, DataTypes);
 db.FavoriteProduct = require("./favoriteProduct.model.js")(sequelize, DataTypes);
 
+db.User.hasMany(db.Product, { foreignKey: "createdByUserID" });
+db.User.hasMany(db.Review, { foreignKey: "userID" });
+db.User.hasMany(db.ReviewVote, { foreignKey: "userID" });
+db.User.hasMany(db.UserBadge, { foreignKey: "userID" });
+db.User.hasMany(db.FavoriteProduct, { foreignKey: "userID" });
+db.Product.hasMany(db.Review, { foreignKey: "productID" });
+db.Product.hasMany(db.FavoriteProduct, { foreignKey: "productID" });
+
+
 // Relations
 db.Product.belongsTo(db.User, { foreignKey: "createdByUserID" });
 db.Review.belongsTo(db.User, { foreignKey: "userID" });
